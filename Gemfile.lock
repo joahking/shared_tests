@@ -1,0 +1,16 @@
+PATH
+  remote: .
+  specs:
+    shared_tests (0.0.1)
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    activesupport (3.0.10)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  activesupport
+  shared_tests!
