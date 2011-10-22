@@ -62,7 +62,8 @@ and sysadmins also,
 class SysAdminTest < Test::Unit::TestCase
   include SharedTests
 
-  assert_shared_tests :of => :programming_motherfucker do
+  # or you can use the shorter version
+  assert_tests :of => :programming_motherfucker do
     @me = SysAdmin.new
   end
 end

@@ -35,10 +35,11 @@ class HackerTest < Test::Unit::TestCase
 end
 
 # the sysadmin tests
-class SysAdminTest < Test::Unit::TestCase
+class SysAdminUsesShortHandTest < Test::Unit::TestCase
   include SharedTests
 
-  assert_shared_tests :of => :programming_motherfucker do
+  # using short hand
+  assert_tests :of => :programming_motherfucker do
     @me = SysAdmin.new
   end
 end

@@ -7,16 +7,16 @@ module SharedTests
   end
 
   module InstanceMethods
-
     def assert_shared_tests(options = {}, &block)
       shared_test = options.delete(:of)
       include "#{shared_test.to_s.camelize}Tests".constantize
 
       define_method(:setup) do
         super()
-        instance_eval(&block)
+        instance_eval &block
       end
     end
+    alias_method :assert_tests, :assert_shared_tests
 
   end
 end
