@@ -3,10 +3,11 @@ require "active_support/inflector"
 
 module SharedTests
   def self.included(base)
-    base.send :extend, InstanceMethods
+    base.send :extend, ClassMethods
   end
 
-  module InstanceMethods
+  module ClassMethods
+
     def assert_shared_tests(options = {}, &block)
       shared_test = options.delete(:of)
       include "#{shared_test.to_s.camelize}Tests".constantize
