@@ -3,71 +3,58 @@
 Shared tests is a minimal DSL for Test::Unit that let's you assert the behavior shared by your objects
 easily, using a little pattern and a commodity DSL.
 
+
+Two objects have common behavior
+
+```ruby
+class StringTest < Test::Unit::TestCase
+  include SharedTests
+
+  assert_tests :of => :length do
+    @subject = "I have length"
+  end
+end
+
+class ArrayTest < Test::Unit::TestCase
+  include SharedTests
+
+  assert_tests :of => :length do
+    @subject = [:i, :have, :length]
+  end
+end
+```
+
+The name of the module where you have the tests for the shared behavior must end with the word Tests.
+
+```ruby
+module LengthTests
+  def test_length_is_not_zero
+    assert @subject.length > 0
+  end
+
+  def test_is_not_empty?
+    assert false == @subject.empty?
+  end
+end
+```
+
+And the results
+
+```
+$ rake test
+(in /home/joahking/dev/rails/shared_test_example/vendor/gems/shared_tests)
+/usr/bin/ruby1.8 -I"lib:test" "/usr/lib/ruby/gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader.rb" "test/shared_tests_test.rb"
+Loaded suite /usr/lib/ruby/gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader
+Started
+....
+Finished in 0.000486 seconds.
+
+4 tests, 4 assertions, 0 failures, 0 errors
+```
+
 ## Installation
 
    gem install shared_tests
-
-## Usage
-
-You want to test this behavior shared by some of your objects.
-
-```ruby
-module ProgrammingMotherfucker
-  def what_am_i?
-    "a programming motherfucker"
-  end
-end
-```
-
-Your Hacker and SysAdmin instances are programming motherfuckers.
-
-```ruby
-class Hacker
-  include ProgrammingMotherfucker
-end
-
-class SysAdmin
-  include ProgrammingMotherfucker
-end
-```
-
-To test it first the little pattern: declare the shared behavior test examples inside a module,
-the trick here is to add the `Tests` word as the end of the module name.
-
-```ruby
-module ProgrammingMotherfuckerTests
-# write your tests as usual
-  def test_is_a_programming_motherfucker?
-    assert @me.what_am_i? == "a programming motherfucker"
-  end
-end
-```
-
-Now you can assert that a hacker is a programming motherfucker,
-
-```ruby
-class HackerTest < Test::Unit::TestCase
-  include SharedTests # include the shared_tests support
-
-  assert_shared_tests :of => :programming_motherfucker do
-  # this is the setup of the shared tests
-    @me = Hacker.new
-  end
-end
-```
-
-and sysadmins also,
-
-```ruby
-class SysAdminTest < Test::Unit::TestCase
-  include SharedTests
-
-  # or you can use the shorter version
-  assert_tests :of => :programming_motherfucker do
-    @me = SysAdmin.new
-  end
-end
-```
 
 ## TODO
 
