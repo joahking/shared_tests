@@ -59,13 +59,10 @@ Finished in 0.000486 seconds.
 ## TODO
 
 * make it use Minitest
-* allow to use @variables names in the setups different that those inside ProgrammingMotherfuckerTests
-* Travis integration
-* collect my programming motherfucker tshirt :-)
 
 ## Thanks
 
-* [Jorge Días](https://github.com/diasjorge) for useful tips.
+* [Jorge Días](https://github.com/diasjorge) for useful tips and pair programming this.
 
 ## License
 
