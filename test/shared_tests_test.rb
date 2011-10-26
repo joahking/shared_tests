@@ -1,45 +1,23 @@
-require 'test/unit'
 require File.expand_path(File.dirname(__FILE__) + '/../lib/shared_tests')
 
-# shared behavior we want to test
-module ProgrammingMotherfucker
-  def what_am_i?
-    "a programming motherfucker"
+module LengthTests
+  def test_length_is_not_zero
+    assert @subject.length > 0
+  end
+
+  def test_is_not_empty?
+    assert false == @subject.empty?
   end
 end
 
-# hacker instances are programming motherfuckers
-class Hacker
-  include ProgrammingMotherfucker
-end
-
-# so are sys admin instances
-class SysAdmin
-  include ProgrammingMotherfucker
-end
-
-# declaring the shared behavior test examples
-module ProgrammingMotherfuckerTests
-  def test_is_a_programming_motherfucker?
-    assert @me.what_am_i? == "a programming motherfucker"
-  end
-end
-
-# the hacker tests
-class HackerTest < Test::Unit::TestCase
+class SharedTestsTest < Test::Unit::TestCase
   include SharedTests
 
-  assert_shared_tests :of => :programming_motherfucker do
-    @me = Hacker.new
+  assert_tests :of => :length do
+    @subject = "I have length"
   end
-end
 
-# the sysadmin tests
-class SysAdminUsesShortHandTest < Test::Unit::TestCase
-  include SharedTests
-
-  # using short hand
-  assert_tests :of => :programming_motherfucker do
-    @me = SysAdmin.new
+  assert_shared_tests :of => :length do
+    @subject = [:i, :have, :length]
   end
 end
