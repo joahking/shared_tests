@@ -11,9 +11,10 @@ module SharedTests
     def assert_shared_tests(options = {}, &block)
       shared_test = options.delete(:of)
       include "#{shared_test.to_s.camelize}Tests".constantize
+      alias_method :setup_without_shared_test, :setup
 
       define_method(:setup) do
-        super()
+        setup_without_shared_test
         instance_eval &block
       end
     end
