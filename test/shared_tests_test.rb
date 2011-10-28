@@ -11,34 +11,22 @@ module LengthTests
   end
 end
 
-class SharedTestsTest < Test::Unit::TestCase
-  include SharedTests
-
-  assert_tests :of => :length do
-    @subject = "I have length"
-  end
-
-  assert_shared_tests :of => :length do
-    @subject = [:i, :have, :length]
-  end
-end
-
-class SetupTest < Test::Unit::TestCase
+class StringTest < Test::Unit::TestCase
   include SharedTests
 
   def setup
-    @setup = "set in setup"
+    @subject = "I have length"
   end
 
-  assert_tests :of => :length do
-    @subject = "I have length even with setup"
+  assert_tests :of => :length
+end
+
+class ArrayTest < Test::Unit::TestCase
+  include SharedTests
+
+  def setup
+    @subject = [:i, :have, :length]
   end
 
-  def test_setup_variable_keeps_untouched
-    assert @setup == "set in setup"
-  end
-
-  def test_subject_is_still_set
-    assert @subject == "I have length even with setup"
-  end
+  assert_shared_tests :of => :length
 end

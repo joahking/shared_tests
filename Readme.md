@@ -1,7 +1,6 @@
 # Shared tests
 
-Shared tests is a minimal DSL for Test::Unit that let's you assert the behavior shared by your objects
-easily, using a little pattern and a commodity DSL.
+Shared tests is an assertion for Test::Unit that let's you assert the behavior shared by your objects in a more readable way.
 
 Two objects have common behavior
 
@@ -9,21 +8,25 @@ Two objects have common behavior
 class StringTest < Test::Unit::TestCase
   include SharedTests
 
-  assert_tests :of => :length do
+  def setup
     @subject = "I have length"
   end
+
+  assert_tests :of => :length
 end
 
 class ArrayTest < Test::Unit::TestCase
   include SharedTests
 
-  assert_tests :of => :length do
+  def setup
     @subject = [:i, :have, :length]
   end
+
+  assert_shared_tests :of => :length
 end
 ```
 
-The name of the module where you have the tests for the shared behavior must end with the word Tests.
+The name of the module where you have the tests for the shared behavior must end with the word Tests. Also make sure you have set up all variables used in the examples.
 
 ```ruby
 module LengthTests
@@ -37,16 +40,29 @@ module LengthTests
 end
 ```
 
+It's all about readability, the same without using the assertion would be
+
+```ruby
+class StringTest < Test::Unit::TestCase
+  include SharedTests
+
+  def setup
+    @subject = "I have length"
+  end
+
+  include LengthTests
+end
+```
+
 And the results
 
 ```
 $ rake test
-(in /home/joahking/dev/rails/shared_test_example/vendor/gems/shared_tests)
-/usr/bin/ruby1.8 -I"lib:test" "/usr/lib/ruby/gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader.rb" "test/shared_tests_test.rb"
-Loaded suite /usr/lib/ruby/gems/1.8/gems/rake-0.8.7/lib/rake/rake_test_loader
+/home/joahking/.rvm/rubies/ruby-1.8.7-p302/bin/ruby -I"lib:test" -I"/home/joahking/.rvm/gems/ruby-1.8.7-p302/gems/rake-0.9.0/lib" "/home/joahking/.rvm/gems/ruby-1.8.7-p302/gems/rake-0.9.0/lib/rake/rake_test_loader.rb" "test/shared_tests_test.rb"
+Loaded suite /home/joahking/.rvm/gems/ruby-1.8.7-p302/gems/rake-0.9.0/lib/rake/rake_test_loader
 Started
 ....
-Finished in 0.000486 seconds.
+Finished in 0.00036 seconds.
 
 4 tests, 4 assertions, 0 failures, 0 errors
 ```
@@ -58,6 +74,7 @@ Finished in 0.000486 seconds.
 ## TODO
 
 * make it use Minitest
+* make it work with shoulda?
 
 ## Build status
 
