@@ -3,7 +3,6 @@
 Shared tests is a minimal DSL for Test::Unit that let's you assert the behavior shared by your objects
 easily, using a little pattern and a commodity DSL.
 
-
 Two objects have common behavior
 
 ```ruby
@@ -59,6 +58,10 @@ Finished in 0.000486 seconds.
 ## TODO
 
 * make it use Minitest
+
+## Build status
+
+[![Build Status](https://secure.travis-ci.org/joahking/shared_tests.png)](http://travis-ci.org/joahking/shared_tests)
 
 ## Thanks
 
